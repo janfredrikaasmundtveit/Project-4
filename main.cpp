@@ -76,14 +76,14 @@ MPI_Init (&argc, &argv);
   	double LocE[]={0.0,0.0,0.0,0.0,0.0}; //E,E^2,M,M^2,|M|
 		double TotE[]={0.0,0.0,0.0,0.0,0.0}; 		  
 		//mcsampling
-	 double pross= (double) RankProcess/((double)NProcesses);
+	 double pross= (double) RankProcess*TempStep/((double)NProcesses);
 	  mcsampling(MCC,temp,pross,NSpin,LocE,lattice,Energy,MagneticMoment);
   	  MPI_Reduce(&LocE, &TotE, 5, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-  	  
-  	if ( RankProcess == 0){ 
+  
+  	//if ( RankProcess == 0){ 
   		output(temp,NSpin,MCC,TotE,NProcesses);	
       //cout << (TotE[1]-TotE[0]*TotE[0])/MCC << "\n";
-		}
+		//}
 
  }
 
